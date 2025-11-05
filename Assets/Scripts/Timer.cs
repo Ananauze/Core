@@ -1,30 +1,45 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    private void Start()
-    {
-        _text.text = "";
-        StartCoroutine(CountDown(1));
-    }
+    private int counter = 0;
+    private bool isRunning = false;
+    private Coroutine counterCoroutine;
 
-    private IEnumerator CountDown(float delay, int start = 10)
+    private void Update()
     {
-        var wait = new WaitForSeconds(delay);
-
-        for (int i = start; i > 0; i--)
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            DisplayCountDown(i);
-            yield return wait;
+            if (isRunning)
+            {
+                StopCoroutine(counterCoroutine);
+                isRunning = false;
+            }
+            else
+            {
+                counterCoroutine = StartCoroutine(CounterEnumerator());
+                isRunning = true;
+            }
         }
     }
 
-    private void DisplayCountDown(int count)
+    private IEnumerator CounterEnumerator()
     {
-        _text.text = count.ToString("");
+        while (true)
+        {
+            counter++;
+            Debug.Log("Counter: " + counter);
+
+            if (_text != null)
+                _text.text = "Counter: " + counter;
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
