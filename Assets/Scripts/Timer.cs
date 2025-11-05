@@ -8,23 +8,23 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    private int counter = 0;
-    private bool isRunning = false;
-    private Coroutine counterCoroutine;
+    private int _counter = 0;
+    private bool _isRunning = false;
+    private Coroutine _counterCoroutine;
 
     private void Update()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (isRunning)
+            if (_isRunning)
             {
-                StopCoroutine(counterCoroutine);
-                isRunning = false;
+                StopCoroutine(_counterCoroutine);
+                _isRunning = false;
             }
             else
             {
-                counterCoroutine = StartCoroutine(CounterEnumerator());
-                isRunning = true;
+                _counterCoroutine = StartCoroutine(CounterEnumerator());
+                _isRunning = true;
             }
         }
     }
@@ -33,11 +33,11 @@ public class Timer : MonoBehaviour
     {
         while (true)
         {
-            counter++;
-            Debug.Log("Counter: " + counter);
+            _counter++;
+            Debug.Log("Counter: " + _counter);
 
             if (_text != null)
-                _text.text = "Counter: " + counter;
+                _text.text = "Counter: " + _counter;
 
             yield return new WaitForSeconds(0.5f);
         }
