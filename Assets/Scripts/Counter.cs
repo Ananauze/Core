@@ -47,6 +47,7 @@ public class Counter : MonoBehaviour
         {
             _count++;
             OnValueChanged?.Invoke(_count);
+            Debug.Log($"Counter: {_count}");
             yield return _wait;
         }
     }
