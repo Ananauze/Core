@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CounterView : MonoBehaviour
 {
@@ -9,12 +8,12 @@ public class CounterView : MonoBehaviour
 
     private void OnEnable()
     {
-        _counter.OnValueChanged += UpdateView;
+        _counter.ValueChanged += UpdateView;
     }
 
     private void OnDisable()
     {
-        _counter.OnValueChanged -= UpdateView;
+        _counter.ValueChanged -= UpdateView;
     }
 
     private void UpdateView(int value)

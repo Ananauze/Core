@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    public event Action<int> OnValueChanged;
-
     [SerializeField] private float _interval = 0.5f;
+
+    public event Action<int> ValueChanged;
 
     private int _count;
     private bool _isRunning;
@@ -28,14 +28,18 @@ public class Counter : MonoBehaviour
 
     public void StartCounting()
     {
-        if (_isRunning) return;
+        if (_isRunning)
+            return;
+        
         _isRunning = true;
         _counterCoroutine = StartCoroutine(CountRoutine());
     }
 
     public void StopCounting()
     {
-        if (!_isRunning || _counterCoroutine == null) return;
+        if (!_isRunning || _counterCoroutine == null)
+            return;
+        
         StopCoroutine(_counterCoroutine);
         _counterCoroutine = null;
         _isRunning = false;
@@ -46,7 +50,7 @@ public class Counter : MonoBehaviour
         while (enabled)
         {
             _count++;
-            OnValueChanged?.Invoke(_count);
+            ValueChanged?.Invoke(_count);
             Debug.Log($"Counter: {_count}");
             yield return _wait;
         }

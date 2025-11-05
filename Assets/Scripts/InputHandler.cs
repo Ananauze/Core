@@ -5,9 +5,9 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] private Counter _counter;
 
-    void Update()
+    private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Input.GetMouseButtonDown(0))
         {
             _counter.Toggle();
         }
